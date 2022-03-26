@@ -1,0 +1,179 @@
+{
+  "project_info": {
+    "project_number": "1010660912665",
+    "project_id": "medicom-c3c81",
+    "storage_bucket": "medicom-c3c81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010660912665:android:51dcb2e89f5fc7e17b0488",
+        "android_client_info": {
+          "package_name": "com.desai.medicom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010660912665-9jl6a97dnj3goa19u4dn7a5cr6831t40.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.desai.medicom",
+            "certificate_hash": "b5acc381c846689a2d7084fe46e9e121bafa9a1c"
+          }
+        },
+        {
+          "client_id": "1010660912665-gtqnimq9lcnkihkuf54tb2gjc892p899.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.desai.medicom",
+            "certificate_hash": "6884bc56f71d302b68e9f4df6508f0517f6dfd5b"
+          }
+        },
+        {
+          "client_id": "1010660912665-ht4bsduk5fcqub3jrsmc3qh37t7hpfmm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.desai.medicom",
+            "certificate_hash": "14de5eb1a3443cf58d1e589c382e7b3fec4f20a3"
+          }
+        },
+        {
+          "client_id": "1010660912665-b5t3qb4jr2o52o9brvdeegebdq3qabkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeSAvTpPGQz_4A89Wt6O0rJxQH3jLwFS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010660912665-b5t3qb4jr2o52o9brvdeegebdq3qabkj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010660912665:android:2a302f6e65cde0917b0488",
+        "android_client_info": {
+          "package_name": "com.desai.medicom_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010660912665-b5t3qb4jr2o52o9brvdeegebdq3qabkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeSAvTpPGQz_4A89Wt6O0rJxQH3jLwFS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010660912665-b5t3qb4jr2o52o9brvdeegebdq3qabkj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010660912665:android:469798b167ca7bff7b0488",
+        "android_client_info": {
+          "package_name": "com.desai.medicom_delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010660912665-b5t3qb4jr2o52o9brvdeegebdq3qabkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeSAvTpPGQz_4A89Wt6O0rJxQH3jLwFS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010660912665-b5t3qb4jr2o52o9brvdeegebdq3qabkj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010660912665:android:2b61c60901e9ade77b0488",
+        "android_client_info": {
+          "package_name": "com.example.dsamip_gmail_com_frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010660912665-b5t3qb4jr2o52o9brvdeegebdq3qabkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeSAvTpPGQz_4A89Wt6O0rJxQH3jLwFS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010660912665-b5t3qb4jr2o52o9brvdeegebdq3qabkj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010660912665:android:f6cecbf699409f677b0488",
+        "android_client_info": {
+          "package_name": "com.example.dsamip_gmail_com_frontend.resume_builder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010660912665-b5t3qb4jr2o52o9brvdeegebdq3qabkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeSAvTpPGQz_4A89Wt6O0rJxQH3jLwFS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010660912665-b5t3qb4jr2o52o9brvdeegebdq3qabkj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
