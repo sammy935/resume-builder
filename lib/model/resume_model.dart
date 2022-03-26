@@ -5,12 +5,13 @@ part 'resume_model.g.dart';
 
 @JsonSerializable()
 class Resume {
+  final String? id;
   final String? firstName;
   final String? lastName;
   final String? emailAddress;
   final String? profileSummary;
-  final List<String?>? skills;
-  final List<String?>? languages;
+  final List<String>? skills;
+  final List<String>? languages;
   @JsonKey(fromJson: dateTimeFromJson, toJson: dateTimeToJson)
   final DateTime? dateOfBirth;
   final String? phoneNumber;
@@ -18,6 +19,7 @@ class Resume {
   final DateTime? updatedAt;
 
   Resume({
+    required this.id,
     required this.firstName,
     required this.lastName,
     required this.dateOfBirth,
@@ -40,8 +42,8 @@ class Resume {
     DateTime? dateOfBirth,
     String? emailAddress,
     String? phoneNumber,
-    List<String?>? languages,
-    List<String?>? skills,
+    List<String>? languages,
+    List<String>? skills,
     String? profileSummary,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -57,6 +59,7 @@ class Resume {
       skills: skills ?? this.skills,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      id: id,
     );
   }
 }

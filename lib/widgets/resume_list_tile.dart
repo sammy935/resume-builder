@@ -1,5 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:resume_builder/data_provider/user_data_provider.dart';
 import 'package:resume_builder/model/resume_model.dart';
+import 'package:resume_builder/utils/baseStrings.dart';
+import 'package:resume_builder/utils/routes.dart';
 
 class ResumeListTile extends StatefulWidget {
   final Resume resume;
@@ -14,6 +19,8 @@ class ResumeListTile extends StatefulWidget {
 }
 
 class _ResumeListTileState extends State<ResumeListTile> {
+  UserDataProvider _userDataProvider = UserDataProvider();
+
   @override
   void initState() {
     super.initState();
@@ -27,20 +34,20 @@ class _ResumeListTileState extends State<ResumeListTile> {
             '\nCreated at:${widget.resume.createdAt?.toLocal()}'
         : 'Created at:${widget.resume.createdAt?.toLocal()}';
     return ListTile(
+      contentPadding:
+          EdgeInsets.only(left: Get.width * .10, bottom: Get.width * .02),
       subtitle: Text(
         subtitle,
         textScaleFactor: 0.8,
       ),
       title: Text(
-        "Skills: ${widget.resume.skills?.join(' ,') ?? ''}",
+        "Email: ${widget.resume.emailAddress ?? ''}",
         style: _taskStyle,
       ),
       trailing: PopupMenuButton(
+        iconSize: Get.width * .10,
         onSelected: (newValue) {
           switch (newValue) {
-            case 0:
-              viewResume();
-              break;
             case 1:
               deleteResume();
               break;
@@ -52,49 +59,28 @@ class _ResumeListTileState extends State<ResumeListTile> {
         onCanceled: () {},
         itemBuilder: (BuildContext context) {
           return [
-            PopupMenuItem(
-              value: 0,
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                dense: true,
-                contentPadding: EdgeInsets.zero,
-                leading: Icon(
-                  Icons.remove_red_eye,
-                  color: Colors.black.withOpacity(0.5),
-                  size: 20.0,
-                ),
-                title: Text("View"),
-              ),
-            ),
-            PopupMenuItem(
-              value: 1,
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                dense: true,
-                contentPadding: EdgeInsets.zero,
-                leading: Icon(
-                  Icons.delete,
-                  color: Colors.black.withOpacity(0.5),
-                  size: 20.0,
-                ),
-                title: Text("Delete"),
-              ),
-            ),
-            PopupMenuItem(
-              value: 3,
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: Icon(
-                  Icons.edit,
-                  color: Colors.black.withOpacity(0.5),
-                  size: 20.0,
-                ),
-                title: Text("Edit"),
-              ),
-            )
+            buildPopupMenuItem(Icons.delete, "Delete", 1),
+            buildPopupMenuItem(Icons.edit, "Edit", 3),
           ];
         },
+      ),
+    );
+  }
+
+  PopupMenuItem<int> buildPopupMenuItem(
+      IconData iconData, String text, int value) {
+    return PopupMenuItem(
+      value: value,
+      padding: EdgeInsets.zero,
+      child: ListTile(
+        dense: true,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+        leading: Icon(
+          iconData,
+          color: Colors.black.withOpacity(0.5),
+          size: 20.0,
+        ),
+        title: Text(text),
       ),
     );
   }
@@ -104,30 +90,13 @@ class _ResumeListTileState extends State<ResumeListTile> {
   }
 
   deleteResume() {
-    // taskBloc.add(DeleteTaskEvent(taskId: widget.task.id!));
-  }
-
-  viewResume() {
-    // taskBloc.add(DeleteTaskEvent(taskId: widget.task.id!));
+    _userDataProvider.deleteTask(widget.resume.id!);
   }
 
   void editResume() {
-    // TaskModel updatedTask = TaskModel(
-    //   id: widget.task.id,
-    //   description: widget.task.description,
-    //   createdAt: widget.task.createdAt,
-    //   weight: widget.task.weight,
-    // );
-    //
-    // showDialog(
-    //     context: context,
-    //     builder: (context) => BlocProvider.value(
-    //       value: taskBloc,
-    //       child: AddEditTaskDialog(
-    //         title: "Edit",
-    //         updateTask: updatedTask,
-    //         userId: widget.userId,
-    //       ),
-    //     ));
+    Get.toNamed(Routes.addEditResume, arguments: {
+      BaseStrings.title: "Edit",
+      BaseStrings.updatedResume: widget.resume,
+    });
   }
 }

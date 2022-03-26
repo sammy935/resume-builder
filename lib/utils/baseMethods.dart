@@ -1,11 +1,48 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 String? validateEmpty({required String? name, required String element}) {
   if (name?.isEmpty ?? true) {
-    return "$element cannot be empty";
+    return "$element can\'t be empty";
   } else {
     return null;
   }
+}
+
+showLoaderDialog(BuildContext context) {
+  AlertDialog alert = AlertDialog(
+    content: Row(
+      children: [
+        const CircularProgressIndicator(),
+        Container(
+            margin: const EdgeInsets.only(left: 15),
+            child: const Text("Loading...")),
+      ],
+    ),
+  );
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+showSuccess(String operation) {
+  Get.showSnackbar(GetSnackBar(
+    title: '$operation was success',
+    backgroundColor: Colors.green,
+  ));
+}
+
+showError(String operation) {
+  Get.showSnackbar(GetSnackBar(
+    title: '$operation was success',
+    backgroundColor: Colors.red,
+  ));
 }
 
 String? validateEmail({required String? email}) {

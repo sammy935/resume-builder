@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:resume_builder/data_provider/user_data_provider.dart';
 import 'package:resume_builder/model/resume_model.dart';
 import 'package:resume_builder/utils/baseStrings.dart';
 import 'package:resume_builder/utils/routes.dart';
@@ -16,39 +19,58 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  // late TaskBloc taskBloc;
-  List<Resume> resumes = <Resume>[];
+  List<Resume>? resumes;
+  UserDataProvider userDataProvider = UserDataProvider();
+  late StreamSubscription? streamSubscription;
   @override
   void initState() {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      streamSubscription = userDataProvider.getResumeList().listen((event) {
+        if (event != null) {
+          setState(() {
+            resumes = event;
+          });
+        }
+      });
+    });
+
     super.initState();
-    // taskBloc.add(GetTaskListEvent(widget.user.uid));
+  }
+
+  @override
+  void dispose() {
+    streamSubscription?.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'HOME'),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.separated(
-              itemCount: resumes.length,
-              itemBuilder: (context, index) {
-                return ResumeListTile(
-                  resume: resumes[index],
-                  key: UniqueKey(),
-                );
-              },
-              separatorBuilder: (c, i) {
-                return const Divider();
-              },
-            ),
-          ),
-          SizedBox(
-            height: Get.height * 0.09,
-          ),
-        ],
-      ),
+      appBar: const CustomAppBar(title: 'HOME'),
+      body: resumes == null
+          ? Center(child: const CircularProgressIndicator())
+          : resumes!.isEmpty
+              ? textWidget('No data found')
+              : ReorderableListView.builder(
+                  shrinkWrap: true,
+                  onReorder: (oldIndex, newIndex) {
+                    debugPrint("reorder caleed");
+                    setState(() {
+                      if (newIndex > oldIndex) {
+                        newIndex = newIndex - 1;
+                      }
+                      final item = resumes!.removeAt(oldIndex);
+                      resumes!.insert(newIndex, item);
+                    });
+                  },
+                  itemCount: resumes!.length,
+                  itemBuilder: (context, index) {
+                    return ResumeListTile(
+                      resume: resumes![index],
+                      key: ValueKey(resumes![index]),
+                    );
+                  },
+                ),
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         onPressed: () => showAddTaskDialog(context),
@@ -61,84 +83,11 @@ class _HomeViewState extends State<HomeView> {
 
   void showAddTaskDialog(BuildContext context) {
     Get.toNamed(Routes.addEditResume, arguments: {BaseStrings.title: 'Add'});
-    // showDialog(
-    //     context: context,
-    //     builder: (context) => BlocProvider.value(
-    //       value: taskBloc,
-    //       child: AddEditTaskDialog(
-    //         title: "Add",
-    //         userId: widget.user.uid,
-    //       ),
-    //     ));
+  }
+
+  Widget textWidget(String text) {
+    return Center(
+      child: Text(text),
+    );
   }
 }
-
-/*BlocConsumer(
-        bloc: taskBloc,
-        listener: (context, state) {
-          // if (state is AddTaskCompleted ||
-          //     state is UpdateTaskCompleted ||
-          //     state is DeleteTaskCompleted) {
-          //   taskBloc.add(GetTaskListEvent());
-          // }
-          print("$state in main page");
-        },
-        buildWhen: (previous, current) {
-          if (current is GetTaskListInProgress ||
-              current is GetTaskListCompleted ||
-              current is GetTaskListFailed ||
-              current is AddTaskInProgress ||
-              current is AddTaskFailed ||
-              current is UpdateTaskInProgress ||
-              current is UpdateTaskFailed ||
-              current is DeleteTaskInProgress ||
-              current is DeleteTaskFailed) {
-            return true;
-          } else {
-            return false;
-          }
-        },
-        builder: (context, state) {
-          if (state is GetTaskListInProgress ||
-              state is AddTaskInProgress ||
-              state is UpdateTaskInProgress ||
-              state is DeleteTaskInProgress) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is GetTaskListCompleted) {
-            if (state.tasks.isEmpty || state.tasks.length == 0)
-              return Center(
-                child: Text("No task available"),
-              );
-            else {
-              tasks = state.tasks;
-              return Column(
-                children: [
-                  Expanded(
-                    child: ListView.separated(
-                      itemCount: tasks.length,
-                      itemBuilder: (context, index) {
-                        return TaskWidget(
-                          task: tasks[index],
-                          userId: widget.user.uid,
-                        );
-                      },
-                      separatorBuilder: (c, i) {
-                        return Divider();
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.09,
-                  ),
-                ],
-              );
-            }
-          } else {
-            return Center(
-              child: Text("No task available"),
-            );
-          }
-        },
-      )*/

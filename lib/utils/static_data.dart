@@ -1,2 +1,2 @@
-List skills = ['Flutter', 'Dart', 'Java'];
-List languages = ['English', 'French', 'Russian', 'Spanish'];
+List<String> skills = ['Flutter', 'Dart', 'Java'];
+List<String> languages = ['English', 'French', 'Russian', 'Spanish'];
