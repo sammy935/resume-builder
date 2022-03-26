@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const HomeView(),
-      getPages: routes.getPages,
+      onGenerateRoute: Routes.generateRoute,
       builder: (context, widget) => ResponsiveWrapper.builder(
         widget!,
         background: Container(

@@ -1,12 +1,15 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resume_builder/model/resume_model.dart';
-
+import 'package:resume_builder/utils/baseStrings.dart';
+import 'package:resume_builder/utils/routes.dart';
+import 'package:resume_builder/widgets/appbar.dart';
+import 'package:resume_builder/widgets/resume_list_tile.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key, }) : super(key: key);
-
+  const HomeView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -24,29 +27,17 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading:const SizedBox.shrink(),
-        title:const Text(
-          'HOME',
-          style: TextStyle(color: Colors.black),
-        ),
-        centerTitle: true,
-        leadingWidth: Get.width * 0.25,
-
-      ),
+      appBar: CustomAppBar(title: 'HOME'),
       body: Column(
         children: [
           Expanded(
             child: ListView.separated(
               itemCount: resumes.length,
               itemBuilder: (context, index) {
-                return SizedBox.shrink();
-                // return TaskWidget(
-                //   task: resumes[index],
-                //   userId: widget.user.uid,
-                // );
+                return ResumeListTile(
+                  resume: resumes[index],
+                  key: UniqueKey(),
+                );
               },
               separatorBuilder: (c, i) {
                 return const Divider();
@@ -61,14 +52,15 @@ class _HomeViewState extends State<HomeView> {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         onPressed: () => showAddTaskDialog(context),
-        child:const Icon(Icons.add),
+        child: const Icon(Icons.add),
         mini: true,
-        backgroundColor:const Color(0xFF27AEE4),
+        backgroundColor: const Color(0xFF27AEE4),
       ),
     );
   }
 
   void showAddTaskDialog(BuildContext context) {
+    Get.toNamed(Routes.addEditResume, arguments: {BaseStrings.title: 'Add'});
     // showDialog(
     //     context: context,
     //     builder: (context) => BlocProvider.value(
