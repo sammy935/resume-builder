@@ -1,4 +1,4 @@
-def localProperties = Properties()
+def localProperties =new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
@@ -44,7 +44,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.dsamip_gmail_com_frontend.resume_builder"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 19
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

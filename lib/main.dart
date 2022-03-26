@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:resume_builder/utils/routes.dart';
+import 'package:resume_builder/views/pages/home_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,17 +17,24 @@ Future<void> main() async {
     'appId': "1:1010660912665:web:8badcf2893c8df207b0488"
   };
 
-  await Firebase.initializeApp(
-      options: FirebaseOptions.fromMap(firebaseConfig));
+  /// use any one of the following
+
+  ///for web
+  // await Firebase.initializeApp(
+  //     options: FirebaseOptions.fromMap(firebaseConfig));
+
+  ///for mobile
+  await Firebase.initializeApp();
 
   // final UserDataProvider userDataProvider = UserDataProvider();
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
+  final routes = Routes();
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -32,53 +42,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  Future<void> _incrementCounter() async {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+      home: const HomeView(),
+      getPages: routes.getPages,
+      builder: (context, widget) => ResponsiveWrapper.builder(
+        widget!,
+        background: Container(
+          color: Colors.grey.shade50,
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        defaultScale: true,
+        breakpoints: const [
+          ResponsiveBreakpoint.resize(450, name: MOBILE),
+          ResponsiveBreakpoint.autoScale(800, name: TABLET),
+          ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+        ],
       ),
     );
   }
