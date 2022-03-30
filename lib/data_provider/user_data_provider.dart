@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:resume_builder/utils/baseStrings.dart';
+import 'package:flutter/foundation.dart';
+import 'package:resume_builder/utils/base_strings.dart';
 
 import '../model/resume_model.dart';
 
@@ -10,31 +11,35 @@ class UserDataProvider {
 
   Stream<List<Resume>?> getResumeList() {
     List<Resume> resumeList;
-    return db
-        .collection(BaseStrings.resumeCollectionPath)
-        .orderBy('createdAt', descending: true)
-        .snapshots()
-        .transform(StreamTransformer<QuerySnapshot<Map<String, dynamic>>,
-                List<Resume>>.fromHandlers(
-            handleData: (QuerySnapshot<Map<String, dynamic>> docSnap,
-                EventSink<List<Resume>> sink) {
-          resumeList = List<Resume>.from(
-            docSnap.docs.map(
-              (snapshot) {
-                if (snapshot.exists) {
-                  return Resume.fromJson(snapshot.data());
-                }
-              },
-            ),
-          );
-          sink.add(resumeList);
-        }, handleError: (error, stackTrace, sink) {
-          print('ERROR: $error');
-          print(stackTrace);
-          sink.addError(error);
-        }, handleDone: (_) {
-          print('done');
-        }));
+    try{
+      return db
+          .collection(BaseStrings.resumeCollectionPath)
+          .orderBy('createdAt', descending: true)
+          .snapshots()
+          .transform(StreamTransformer<QuerySnapshot<Map<String, dynamic>>,
+                  List<Resume>>.fromHandlers(
+              handleData: (QuerySnapshot<Map<String, dynamic>> docSnap,
+                  EventSink<List<Resume>> sink) {
+            resumeList = List<Resume>.from(
+              docSnap.docs.map(
+                (snapshot) {
+                  if (snapshot.exists) {
+                    return Resume.fromJson(snapshot.data());
+                  }
+                },
+              ),
+            );
+            sink.add(resumeList);
+          }, handleError: (error, stackTrace, sink) {
+            debugPrint('ERROR: $error');
+            debugPrint(stackTrace.toString());
+            sink.addError(error);
+          }, handleDone: (_) {
+            debugPrint('done');
+          }));
+    }catch(e){
+      rethrow;
+    }
   }
 
   Future<bool> deleteTask(String id) async {
@@ -42,7 +47,7 @@ class UserDataProvider {
       await db.collection(BaseStrings.resumeCollectionPath).doc(id).delete();
       return true;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
   }
@@ -55,7 +60,7 @@ class UserDataProvider {
           .set(newTask.toJson());
       return true;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
   }
@@ -68,7 +73,7 @@ class UserDataProvider {
           );
       return true;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
   }

@@ -5,10 +5,10 @@ import 'package:resume_builder/data_provider/user_data_provider.dart';
 import 'package:resume_builder/model/resume_model.dart';
 import 'package:resume_builder/utils/static_data.dart';
 import 'package:resume_builder/widgets/appbar.dart';
-import 'package:resume_builder/widgets/multiSelectDialog.dart';
+import 'package:resume_builder/widgets/multi_select_dialog.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../utils/baseMethods.dart';
+import '../../utils/base_methods.dart';
 
 class AddEditContent extends StatefulWidget {
   final String title;

@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resume_builder/data_provider/user_data_provider.dart';
 import 'package:resume_builder/model/resume_model.dart';
-import 'package:resume_builder/utils/baseStrings.dart';
+import 'package:resume_builder/utils/base_strings.dart';
 import 'package:resume_builder/utils/routes.dart';
 
 class ResumeListTile extends StatefulWidget {
@@ -19,7 +18,7 @@ class ResumeListTile extends StatefulWidget {
 }
 
 class _ResumeListTileState extends State<ResumeListTile> {
-  UserDataProvider _userDataProvider = UserDataProvider();
+  final UserDataProvider _userDataProvider = UserDataProvider();
 
   @override
   void initState() {
@@ -30,8 +29,7 @@ class _ResumeListTileState extends State<ResumeListTile> {
   Widget build(BuildContext context) {
     String subtitle = '';
     subtitle = widget.resume.profileSummary?.isNotEmpty ?? false
-        ? "Profile: ${widget.resume.profileSummary}" +
-            '\nCreated at:${widget.resume.createdAt?.toLocal()}'
+        ? '''Profile: ${widget.resume.profileSummary} \nCreated at:${widget.resume.createdAt?.toLocal()}'''
         : 'Created at:${widget.resume.createdAt?.toLocal()}';
     return ListTile(
       contentPadding:

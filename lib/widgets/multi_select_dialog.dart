@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -38,13 +37,13 @@ class _MultiSelectDialogState extends State<MultiSelectDialog> {
                     onPressed: () {
                       Get.back();
                     },
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       Get.back(result: sElements);
                     },
-                    child: Text('SUBMIT'),
+                    child: const Text('SUBMIT'),
                   ),
                 ],
               );

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resume_builder/data_provider/user_data_provider.dart';
 import 'package:resume_builder/model/resume_model.dart';
-import 'package:resume_builder/utils/baseStrings.dart';
+import 'package:resume_builder/utils/base_strings.dart';
 import 'package:resume_builder/utils/routes.dart';
 import 'package:resume_builder/widgets/appbar.dart';
 import 'package:resume_builder/widgets/resume_list_tile.dart';
@@ -21,18 +21,9 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   List<Resume>? resumes;
   UserDataProvider userDataProvider = UserDataProvider();
-  late StreamSubscription? streamSubscription;
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      streamSubscription = userDataProvider.getResumeList().listen((event) {
-        if (event != null) {
-          setState(() {
-            resumes = event;
-          });
-        }
-      });
-    });
+    WidgetsBinding.instance?.addPostFrameCallback((_) {});
 
     super.initState();
   }
@@ -48,7 +39,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: const CustomAppBar(title: 'HOME'),
       body: resumes == null
-          ? Center(child: const CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : resumes!.isEmpty
               ? textWidget('No data found')
               : ReorderableListView.builder(

@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:resume_builder/utils/baseMethods.dart';
+import 'package:resume_builder/utils/base_methods.dart';
 
 part 'resume_model.g.dart';
 

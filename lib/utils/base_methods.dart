@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:resume_builder/utils/base_extension.dart';
 
 String? validateEmpty({required String? name, required String element}) {
   if (name?.isEmpty ?? true) {
-    return "$element can\'t be empty";
+    return "$element can't be empty";
   } else {
     return null;
   }
@@ -74,7 +74,7 @@ DateTime? dateTimeFromJson(dynamic val) {
   if (timestamp != null) {
     return timestamp.toDate();
   } else {
-    print('Unable to parse Timestamp from $val');
+    'Unable to parse Timestamp from $val'.toLog;
     return null;
   }
 }
