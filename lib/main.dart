@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:resume_builder/bloc/resume_bloc.dart';
+import 'package:resume_builder/data_provider/user_data_provider.dart';
 import 'package:resume_builder/utils/routes.dart';
 import 'package:resume_builder/views/pages/home_view.dart';
 
@@ -26,15 +29,19 @@ Future<void> main() async {
   ///for mobile
   await Firebase.initializeApp();
 
-  // final UserDataProvider userDataProvider = UserDataProvider();
+  final UserDataProvider userDataProvider = UserDataProvider();
 
-  runApp(MyApp());
+  runApp(BlocProvider(
+    create: (context) => ResumeBloc(userDataProvider: userDataProvider),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
   final routes = Routes();
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
